@@ -1,27 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <main>
+    <TasksList :filter="currentFilter" />
+  </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { defineComponent, ref } from "vue";
+import TasksList from "./components/TasksList.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    HelloWorld,
+    TasksList,
+  },
+  setup() {
+    const currentFilter = ref<"all" | "active" | "completed">("all");
+
+    const updateFilter = (filter: "all" | "active" | "completed") => {
+      currentFilter.value = filter;
+    };
+
+    return { currentFilter, updateFilter };
   },
 });
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+main {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
 }
 </style>

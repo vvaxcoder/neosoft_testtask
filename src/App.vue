@@ -2,6 +2,7 @@
   <main>
     <h1>Список задач</h1>
     <TaskInput />
+    <TasksFilter @filter-changed="updateFilter" />
     <TasksList :filter="currentFilter" />
   </main>
 </template>
@@ -10,12 +11,14 @@
 import { defineComponent, ref } from "vue";
 import TasksList from "./components/TasksList.vue";
 import TaskInput from "./components/TaskInput.vue";
+import TasksFilter from "./components/TasksFilter.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     TasksList,
     TaskInput,
+    TasksFilter,
   },
   setup() {
     const currentFilter = ref<"all" | "active" | "completed">("all");
